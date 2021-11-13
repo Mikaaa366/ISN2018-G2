@@ -18,8 +18,8 @@ class CreateZamowieniaTable extends Migration
             $table->integer('id_nadawca')->nullable(true)->default(null);
             $table->integer('id_odbiorca')->nullable(true)->default(null);
             $table->integer('Ilosc_sztuk')->default(0);
-            $table->integer('Kwota')->nullable(true)->nullable(false);
-            $table->integer('id_towaru')->nullable(true)->nullable(false);
+            $table->decimal('Kwota', $precision = 8, $scale = 2)->nullable(false);
+            $table->integer('id_towaru')->nullable(false);
             $table->integer('id_opakowania')->nullable(false)->default(0);
             $table->integer('id_paczka')->nullable(false)->default(0);
             $table->integer('id_pojazd')->nullable(false);
