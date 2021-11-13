@@ -14,16 +14,16 @@ class CreateZamowieniaTable extends Migration
     public function up()
     {
         Schema::create('zamowienia', function (Blueprint $table) {
-            $table->bigIncrements(id_zamowienia);
-            $table->integer(id_nadawca, 11, );
-            $table->integer(id_odbiorca, 11);
-            $table->integer(Ilosc_sztuk);
-            $table->integer(Kwota);
-            $table->integer(id_towaru);
-            $table->integer(id_opakowania);
-            $table->integer(id_paczka);
-            $table->integer(id_pojazd);
-            $table->integer(id_listu);
+            $table->bigIncrements('id_zamowienia');
+            $table->integer('id_nadawca')->nullable(true)->default(null);
+            $table->integer('id_odbiorca')->nullable(true)->default(null);
+            $table->integer('Ilosc_sztuk')->default(0);
+            $table->integer('Kwota')->nullable(true)->nullable(false);
+            $table->integer('id_towaru')->nullable(true)->nullable(false);
+            $table->integer('id_opakowania')->nullable(false)->default(0);
+            $table->integer('id_paczka')->nullable(false)->default(0);
+            $table->integer('id_pojazd')->nullable(false);
+            $table->integer('id_listu')->nullable(false);
         });
     }
 
