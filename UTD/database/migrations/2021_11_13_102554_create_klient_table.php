@@ -20,6 +20,7 @@ class CreateKlientTable extends Migration
             $table->date('data_urodzenia')->nullable(false);
             $table->integer('id_ulicy')->nullable(false);
         });
+        
     }
 
     /**
