@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\clientPanelCotroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +20,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware(['auth', 'verified'])->group(function() {
+    Route::middleware(['can:isClient'])->group(function() {
+        Route::get('/home', [App\Http\Controllers\clientPanelCotroller::class, 'index']);
+        Route::post('/deliveryAddress', [App\Http\Controllers\clientPanelCotroller::class, 'deliveryAddress']);
+        
+    });
+});
