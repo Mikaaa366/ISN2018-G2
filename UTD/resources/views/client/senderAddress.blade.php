@@ -8,15 +8,14 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/home">Home</a></li>
-                    <li class="breadcrumb-item"><a href="/backToSenderAddress">Sender Address</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Delivery Address</li>
+                    <li class="breadcrumb-item active" aria-current="page">Sender Address</li>
                 </ol>
             </nav>
 
                 <div class="card-body">
-                    <h5><b>Podaj adres dostawy:</b></h5>
+                    <h5><b>Podaj dane nadawcy:</b></h5>
                     
-                    <form action="/paymentMethods" method="post">
+                    <form action="/deliveryAddress" method="post">
                         @csrf
                         <div class="row">
                             <div class="col">

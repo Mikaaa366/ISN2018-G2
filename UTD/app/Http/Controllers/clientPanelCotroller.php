@@ -13,7 +13,36 @@ class clientPanelCotroller extends Controller
      */
     public function index()
     {
-        return view('client.home');
+        $step1 = session()->get('step1');
+        if($step1 == null){
+            $step1 = [
+                'width' => "",
+                'height' => "",
+                'length' => "",
+                'weight' => ""
+            ];
+        }
+        return view('client.home')->with('step1', $step1);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function backToSenderAddress()
+    {
+        return view('client.senderAddress');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function backToDeliveryAddress()
+    {
+        return view('client.deliveryAddress');
     }
 
     /**
@@ -27,8 +56,29 @@ class clientPanelCotroller extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function senderAddress(Request $request)
+    {
+        $token = $request->session()->token();
+        $token = csrf_token();
+
+        $step1 = $request->only(['width', 'height', 'length', 'weight']);//, 'packageType'
+
+        foreach($step1 as $value){
+            if (empty($value)){
+                return redirect()->back()->with('status', 'Nie uzupełniłeś wszystkich danych');;
+            }
+        }
+
+            $request->session()->put('step1', $step1);
+            session()->save();
+
+        return view('client.senderAddress');
+    }
+
+    /**
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -38,6 +88,18 @@ class clientPanelCotroller extends Controller
         $token = csrf_token();
 
         return view('client.deliveryAddress');
+    }
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function paymentMethods(Request $request)
+    {
+        $token = $request->session()->token();
+        $token = csrf_token();
+
+        return view('client.paymentMethods');
     }
 
     /**
@@ -77,11 +139,12 @@ class clientPanelCotroller extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+        Session()->forget('step1');
+
+        return redirect()->back();
     }
 }

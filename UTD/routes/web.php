@@ -23,7 +23,13 @@ Auth::routes();
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::middleware(['can:isClient'])->group(function() {
         Route::get('/home', [App\Http\Controllers\clientPanelCotroller::class, 'index']);
+        Route::post('/senderAddress', [App\Http\Controllers\clientPanelCotroller::class, 'senderAddress']);
         Route::post('/deliveryAddress', [App\Http\Controllers\clientPanelCotroller::class, 'deliveryAddress']);
-        
+        Route::post('/paymentMethods', [App\Http\Controllers\clientPanelCotroller::class, 'paymentMethods']);
+
+        Route::get('/backToSenderAddress', [App\Http\Controllers\clientPanelCotroller::class, 'backToSenderAddress']);
+        Route::get('/backToDeliveryAddress', [App\Http\Controllers\clientPanelCotroller::class, 'backToDeliveryAddress']);
     });
 });
+
+Route::get('/destroy', [App\Http\Controllers\clientPanelCotroller::class, 'destroy']);
