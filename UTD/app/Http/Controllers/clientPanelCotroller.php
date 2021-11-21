@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class clientPanelCotroller extends Controller
 {
@@ -32,7 +33,11 @@ class clientPanelCotroller extends Controller
      */
     public function backToSenderAddress()
     {
-        return view('client.senderAddress');
+        $step2 = session()->get('step2');
+        
+        return view('client.senderAddress', [
+            'User' => Auth::user()
+        ])->with('step2', $step2);
     }
 
     /**
@@ -42,7 +47,9 @@ class clientPanelCotroller extends Controller
      */
     public function backToDeliveryAddress()
     {
-        return view('client.deliveryAddress');
+        $step3 = session()->get('step3');
+
+        return view('client.deliveryAddress')->with('step3', $step3);
     }
 
     /**
@@ -75,7 +82,11 @@ class clientPanelCotroller extends Controller
             $request->session()->put('step1', $step1);
             session()->save();
 
-        return view('client.senderAddress');
+            //pobierz mail
+
+        return view('client.senderAddress', [
+            'User' => Auth::user()
+        ]);
     }
 
     /**
@@ -86,6 +97,20 @@ class clientPanelCotroller extends Controller
     {
         $token = $request->session()->token();
         $token = csrf_token();
+
+        $step2 = $request->only(['name', 'surname', 'email', 'phonenumber', 'address', 'house_number', 'apartment_number', 'zip_code', 'province', 'city']);
+        
+        foreach($step2 as $key => $value){
+            if (empty($value) and $key != "apartment_number"){
+                return redirect('/backToSenderAddress')->with(array(
+                    'User' => Auth::user(),
+                    'status' => 'Nie uzupełniłeś wszystkich danych'
+                ));      
+            }
+        }
+
+            $request->session()->put('step2', $step2);
+            session()->save();
 
         return view('client.deliveryAddress');
     }
@@ -98,6 +123,17 @@ class clientPanelCotroller extends Controller
     {
         $token = $request->session()->token();
         $token = csrf_token();
+
+        $step3 = $request->only(['name', 'surname', 'email', 'phonenumber', 'address', 'house_number', 'apartment_number', 'zip_code', 'province', 'city']);
+
+        foreach($step3 as $key => $value){
+            if (empty($value) and $key != "apartment_number"){
+                return redirect('/backToDeliveryAddress')->with('status', 'Nie uzupełniłeś wszystkich danych');      
+            }
+        }
+
+            $request->session()->put('step3', $step3);
+            session()->save();
 
         return view('client.paymentMethods');
     }
@@ -144,6 +180,8 @@ class clientPanelCotroller extends Controller
     public function destroy()
     {
         Session()->forget('step1');
+        Session()->forget('step2');
+        Session()->forget('step3');
 
         return redirect()->back();
     }
