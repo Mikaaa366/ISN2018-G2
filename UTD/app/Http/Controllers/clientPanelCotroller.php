@@ -82,8 +82,6 @@ class clientPanelCotroller extends Controller
             $request->session()->put('step1', $step1);
             session()->save();
 
-            //pobierz mail
-
         return view('client.senderAddress', [
             'User' => Auth::user()
         ]);
