@@ -53,13 +53,33 @@
                         </div>
                         <div class="form-text mb-4">Podaj wagę w kilogramach</div>
 
-                        <button type="submit" class="btn btn-primary">Przejdź dalej</button>
+                        <button type="submit" id="submit" class="btn btn-primary">Przejdź dalej</button>
                     </form>
 
-                    
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function()
+    {
+        //if any input has changed value
+        $("#width, #length, #height").on("input", function() {
+
+            if ($('#width').val() < 100 || $('#height').val() < 100 || $('#length').val() < 100){
+                $('#packageType').val('mała');
+            }
+            else if ($('#width').val() > 100 || $('#height').val() > 100 || $('#length').val() > 100){
+                $('#packageType').val('srednia');
+            }
+            else {
+                $('#packageType').val('duza');
+            }
+
+        });
+    })
+</script>
 @endsection
