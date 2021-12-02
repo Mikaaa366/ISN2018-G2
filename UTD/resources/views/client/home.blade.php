@@ -69,15 +69,34 @@
         //if any input has changed value
         $("#width, #length, #height").on("input", function() {
 
-            if ($('#width').val() < 100 || $('#height').val() < 100 || $('#length').val() < 100){
-                $('#packageType').val('mała');
+            let width   =   $('#width').val();
+            let height  =   $('#height').val();
+            let length  =   $('#length').val();
+/*
+            if (width <= 100 && height <= 100 && length <= 100){
+                $('#packageType').val('Typ: mała');
             }
-            else if ($('#width').val() > 100 || $('#height').val() > 100 || $('#length').val() > 100){
-                $('#packageType').val('srednia');
+            else if (
+                    (width > 100 && width <= 300)
+                    && (height > 100 && height <= 300) 
+                    && (length > 100 && length <= 300)
+                    ){
+                $('#packageType').val('Typ: średnia');
             }
             else {
-                $('#packageType').val('duza');
+                $('#packageType').val('Typ: duża');
             }
+
+*/
+        if (width > 300 || height > 300 || length > 300){
+            $('#packageType').val('Typ: duża');
+        }
+        else if ((width >= 100 && width <= 300) || (height >= 100 && height <= 300) || (length >= 100 && length <= 300)){
+            $('#packageType').val('Typ: średnia');
+        }
+        else {
+            $('#packageType').val('Typ: mała');
+        }
 
         });
     })
