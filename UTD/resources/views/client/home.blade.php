@@ -67,27 +67,29 @@
     $(document).ready(function()
     {
         //if any input has changed value
-        $("#width, #length, #height").on("input", function() {
+        $("#width, #length, #height, #weight").on("input", function() {
 
-            let width   =   $('#width').val();
-            let height  =   $('#height').val();
-            let length  =   $('#length').val();
-/*
-            if (width <= 100 && height <= 100 && length <= 100){
-                $('#packageType').val('Typ: mała');
+            $(".form-control").each(function () {
+            
+            if ($(this).val() < 1){
+                $(this).css('border-color', 'red');
             }
-            else if (
-                    (width > 100 && width <= 300)
-                    && (height > 100 && height <= 300) 
-                    && (length > 100 && length <= 300)
-                    ){
-                $('#packageType').val('Typ: średnia');
+            else{
+                $(this).css('border-color', '');
             }
-            else {
-                $('#packageType').val('Typ: duża');
-            }
+        });
 
-*/
+        let width   =   $('#width').val();
+        let height  =   $('#height').val();
+        let length  =   $('#length').val();
+
+        if (width < 1 || height < 1 || length < 1){
+            $(':input[type="submit"]').prop('disabled', true);
+        }
+        else {
+            $(':input[type="submit"]').prop('disabled', false);
+        }
+
         if (width > 300 || height > 300 || length > 300){
             $('#packageType').val('Typ: duża');
         }
@@ -97,7 +99,6 @@
         else {
             $('#packageType').val('Typ: mała');
         }
-
         });
     })
 </script>
