@@ -64,8 +64,8 @@
 </div>
 
 <script>
-    $(document).ready(function()
-    {
+    $(document).ready(function(){
+
         //if any input has changed value
         $("#width, #length, #height, #weight").on("input", function() {
 
@@ -82,8 +82,9 @@
         let width   =   $('#width').val();
         let height  =   $('#height').val();
         let length  =   $('#length').val();
+        let weight  =   $('#weight').val();
 
-        if (width < 1 || height < 1 || length < 1){
+        if (width < 1 || height < 1 || length < 1 || weight < 1){
             $(':input[type="submit"]').prop('disabled', true);
         }
         else {
