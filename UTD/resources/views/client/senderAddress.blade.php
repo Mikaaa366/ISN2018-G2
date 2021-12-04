@@ -109,4 +109,23 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+
+        //if any input has changed value
+        $(".form-control").on("input", function() {
+
+            $(".form-control").each(function () {
+            
+            if ($(this).val() < 1){
+                $(this).css('border-color', 'red');
+            }
+            else{
+                $(this).css('border-color', '');
+            }
+        });
+    })
+})
+</script>
 @endsection
