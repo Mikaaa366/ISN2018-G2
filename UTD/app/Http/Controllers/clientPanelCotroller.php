@@ -71,7 +71,7 @@ class clientPanelCotroller extends Controller
         $token = $request->session()->token();
         $token = csrf_token();
 
-        $step1 = $request->only(['width', 'height', 'length', 'weight']);//, 'packageType'
+        $step1 = $request->only(['width', 'height', 'length', 'weight', 'packageType']);
 
         foreach($step1 as $value){
             if (empty($value)){
