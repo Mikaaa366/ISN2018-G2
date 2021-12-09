@@ -17,28 +17,22 @@
                 <div class="card-body">
                     <h5><b>Wybierz sposób płatności:</b></h5>
                     
-                    <form action="/" method="post">
-                        @csrf
-                        <div class="card-deck-wrapper">
-                            <div class="card-deck">
-                                <div class="card p-2">
-                                    <a class="card-block stretched-link">
-                                        <h4 class="card-title">Blik</h4>
-                                        <p class="card-text"></p>
-                                    </a>
-                                </div>
-                                <div class="card p-2">
-                                    <a class="card-block stretched-link">
-                                        <h4 class="card-title">PayU</h4>
-                                        <p class="card-text"></p>
-                                    </a>
-                                </div>
+                    <div class="card-deck-wrapper">
+                        <div class="card-deck">
+                            <div class="card p-2">
+                                <a href= "/addOrder/1" class="card-block stretched-link">
+                                    <h4 class="card-title">Blik</h4>
+                                    <p class="card-text"></p>
+                                </a>
+                            </div>
+                            <div class="card p-2">
+                                <a href= "/addOrder/2" class="card-block stretched-link">
+                                    <h4 class="card-title">PayU</h4>
+                                    <p class="card-text"></p>
+                                </a>
                             </div>
                         </div>
-
-                        <button type="submit" class="mt-4 btn btn-primary">Zamawiam i płacę</button>
-                    </form>
-
+                    </div>
                     
                 </div>
             </div>

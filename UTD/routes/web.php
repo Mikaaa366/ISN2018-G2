@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\clientPanelCotroller;
+use App\Http\Controllers\AddOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
         Route::get('/backToSenderAddress', [App\Http\Controllers\clientPanelCotroller::class, 'backToSenderAddress']);
         Route::get('/backToDeliveryAddress', [App\Http\Controllers\clientPanelCotroller::class, 'backToDeliveryAddress']);
+
+        Route::get('/addOrder/{id}', [App\Http\Controllers\AddOrderController::class, 'createOrder']);
     });
 });
 
