@@ -20,10 +20,6 @@ class zamowienia extends Model
         'id_odbiorca',
         'Ilosc_sztuk',
         'Kwota',
-        'id_towaru',
         'id_opakowania',
-        'id_paczka',
-        'id_pojazd',
-        'id_listu',
     ];
 }

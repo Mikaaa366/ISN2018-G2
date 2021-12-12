@@ -15,6 +15,30 @@
             </nav>
 
                 <div class="card-body">
+                    <h5><b>Dane do przesyłki:</b></h5>
+                        <table class="table">
+                            <tr>
+                                <td>Szerokość:</td>
+                                <td>{{ $step1['width'] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Wysokość:</td>
+                                <td>{{ $step1['height'] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Długość:</td>
+                                <td>{{ $step1['length'] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Waga:</td>
+                                <td>{{ $step1['weight'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Cena:</b></td>
+                                <td><b>{{ $price->price }}</b></td>
+                            </tr>
+                        </table>
+
                     <h5><b>Wybierz sposób płatności:</b></h5>
                     
                     <div class="card-deck-wrapper">

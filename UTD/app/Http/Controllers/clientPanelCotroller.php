@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class clientPanelCotroller extends Controller
 {
@@ -79,8 +80,11 @@ class clientPanelCotroller extends Controller
             }
         }
 
-            $request->session()->put('step1', $step1);
-            session()->save();
+        $request->session()->put('step1', $step1);
+        session()->save();
+        //pobranie ceny
+        $price = DB::table('cena')->select('price')->where('type', '=', $step1['packageType'])->get();
+        $request->session()->put('price', $price[0]);
 
         return view('client.senderAddress', [
             'User' => Auth::user()
@@ -133,7 +137,10 @@ class clientPanelCotroller extends Controller
             $request->session()->put('step3', $step3);
             session()->save();
 
-        return view('client.paymentMethods');
+        return view('client.paymentMethods')->with([
+            'step1' => session()->get('step1'),
+            'price' => session()->get('price')
+        ]);
     }
 
     /**

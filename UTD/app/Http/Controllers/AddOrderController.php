@@ -7,6 +7,7 @@ use App\Models\opakowanie;
 use App\Models\miasto;
 use App\Models\ulica;
 use App\Models\klient;
+use App\Models\zamowienia;
 
 class AddOrderController extends Controller
 {
@@ -30,6 +31,7 @@ class AddOrderController extends Controller
         $step1 = session()->get('step1');
         $client[] = session()->get('step2');
         $client[] = session()->get('step3');
+        $price = session()->get('price');
         
         if($step1 == null || $client == null){
 
@@ -56,14 +58,7 @@ class AddOrderController extends Controller
                     'Nazwa_ulicy' => $value['address'],
                     'Numer_domu' => $value['house_number'],
                     'Numer_mieszkania' => $value['apartment_number'],
-                    'id_miasta' => $idMiasta
-                ])->id;
-                //dodawanie ulicy
-                $idUlicy = ulica::create([
-                    'Nazwa_ulicy' => $value['address'],
-                    'Numer_domu' => $value['house_number'],
-                    'Numer_mieszkania' => $value['apartment_number'],
-                    'id_miasta' => $idMiasta
+                    'id_miasta' => $idMiasta,
                 ])->id;
                 //dodawanie klienta
                 $idKlienta[] = klient::create([
@@ -71,12 +66,20 @@ class AddOrderController extends Controller
                     'nazwisko' => $value['surname'],
                     'id_ulicy' => $idUlicy,
                     'email' => $value['email'],
-                    'phonenumber' => $value['phonenumber'],
+                    'phonenumber' => $value['phonenumber']
                 ])->id;
+            };
 
-            }
+            //dodawanie zamówienia
+            zamowienia::create([
+                'id_nadawca' => $idKlienta[0],
+                'id_odbiorca' => $idKlienta[1],
+                'Ilosc_sztuk' =>'1',
+                'Kwota' => $price->price,
+                'id_opakowania' => $idOpakowania
+            ]);
 
-            return redirect('/home')->with('status', 'Pomyślnie dodano rekord do bazy.');
+            return redirect('/')->with('statusSuccess', 'Pomyślnie dodano rekord do bazy.');
         }
     }
 
