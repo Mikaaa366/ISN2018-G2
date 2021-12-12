@@ -92,13 +92,13 @@
         }
 
         if (width > 300 || height > 300 || length > 300){
-            $('#packageType').val('Typ: duża');
+            $('#packageType').val('duża');
         }
         else if ((width >= 100 && width <= 300) || (height >= 100 && height <= 300) || (length >= 100 && length <= 300)){
-            $('#packageType').val('Typ: średnia');
+            $('#packageType').val('średnia');
         }
         else {
-            $('#packageType').val('Typ: mała');
+            $('#packageType').val('mała');
         }
         });
     })
