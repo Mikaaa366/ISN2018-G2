@@ -59,10 +59,28 @@
 
                     <div class="ml-4 text-center text-gray-500">
                         <label for="name" class="form-label"><b>Znajdź paczkę:</b></label>
-                        <input type="text" class="form-control" id="findOrder" name="findOrder">
+                        <input type="text" class="form-control search-packages search" id="findOrder" name="findOrder">
                     </div>
                 </div>
             </div>
         </div>
+        <script>
+            $('search-packages').change(function (e) {
+                e.preventDefault();
+
+                var ele = $(this);
+
+                $.ajax({
+                    url: '{{route('search-package')}}',
+                    method: "patch",
+                    data: {
+                        search: ele.parents("tr").find("search").val()
+                    }
+                },
+                success: function (response) {
+                    window.location.reload();
+                })
+            })
+        </script>
     </body>
 </html>
