@@ -64,23 +64,5 @@
                 </div>
             </div>
         </div>
-        <script>
-            $('search-packages').change(function (e) {
-                e.preventDefault();
-
-                var ele = $(this);
-
-                $.ajax({
-                    url: '{{route('search-package')}}',
-                    method: "patch",
-                    data: {
-                        search: ele.parents("tr").find("search").val()
-                    }
-                },
-                success: function (response) {
-                    window.location.reload();
-                })
-            })
-        </script>
     </body>
 </html>
