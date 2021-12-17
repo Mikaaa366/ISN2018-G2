@@ -18,20 +18,19 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/home">Home</a></li>
-                    <li class="breadcrumb-item"><a href="/backToSenderAddress">Sender Address</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Delivery Address</li>
+                    <li class="breadcrumb-item active" aria-current="page">Sender Address</li>
                 </ol>
             </nav>
 
                 <div class="card-body">
-                    <h5><b>Podaj adres dostawy:</b></h5>
+                    <h5><b>Podaj dane nadawcy:</b></h5>
                     
-                    <form action="/paymentMethods" method="post">
+                    <form action="/deliveryAddress" method="post">
                         @csrf
                         <div class="row">
                             <div class="col">
                                 <label for="name" class="form-label">Imię:</label>
-                                <input type="text" class="form-control" id="name" name="name">
+                                <input type="text" class="form-control" id="name" name="name" value="{{ $User->name }}">
                             </div>
                             <div class="col">
                                 <label for="surname" class="form-label">Nazwisko:</label>
@@ -42,7 +41,7 @@
                         <div class="row">
                             <div class="col">
                                 <label for="email" class="form-label">Email:</label>
-                                <input type="email" class="form-control" id="email" name="email">
+                                <input type="email" class="form-control" id="email" name="email" value="{{ $User->email }}">
                             </div>
                             <div class="col">
                                 <label for="phonenumber" class="form-label">Numer telefonu:</label>
@@ -110,4 +109,23 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+
+        //if any input has changed value
+        $(".form-control").on("input", function() {
+
+            $(".form-control").each(function () {
+            
+            if ($(this).val() < 1){
+                $(this).css('border-color', 'red');
+            }
+            else{
+                $(this).css('border-color', '');
+            }
+        });
+    })
+})
+</script>
 @endsection

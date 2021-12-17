@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\clientPanelCotroller;
+use App\Http\Controllers\AddOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,15 @@ Auth::routes();
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::middleware(['can:isClient'])->group(function() {
         Route::get('/home', [App\Http\Controllers\clientPanelCotroller::class, 'index']);
-        Route::post('/deliveryAddress', [App\Http\Controllers\clientPanelCotroller::class, 'deliveryAddress']);
-        
+        Route::post('/senderAddress', [App\Http\Controllers\clientPanelCotroller::class, 'senderAddress'])->name('senderAddress');
+        Route::post('/deliveryAddress', [App\Http\Controllers\clientPanelCotroller::class, 'deliveryAddress'])->name('deliveryAddress');
+        Route::post('/paymentMethods', [App\Http\Controllers\clientPanelCotroller::class, 'paymentMethods']);
+
+        Route::get('/backToSenderAddress', [App\Http\Controllers\clientPanelCotroller::class, 'backToSenderAddress']);
+        Route::get('/backToDeliveryAddress', [App\Http\Controllers\clientPanelCotroller::class, 'backToDeliveryAddress']);
+
+        Route::get('/addOrder/{id}', [App\Http\Controllers\AddOrderController::class, 'createOrder']);
     });
 });
+
+Route::get('/destroy', [App\Http\Controllers\clientPanelCotroller::class, 'destroy']);

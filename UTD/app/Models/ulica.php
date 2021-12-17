@@ -5,21 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class zamowienia extends Model
+class ulica extends Model
 {
     use HasFactory;
 
-    public $table = "zamowienia";
+
+    public $table = "ulica";
     /**
      * The attributes that are mass assignable.
      *
      * @var string[]
      */
     protected $fillable = [
-        'id_nadawca',
-        'id_odbiorca',
-        'Ilosc_sztuk',
-        'Kwota',
-        'id_opakowania',
+        'Nazwa_ulicy',
+        'Numer_domu',
+        'Numer_mieszkania',
+        'id_miasta',
     ];
 }
