@@ -116,6 +116,7 @@
         //if any input has changed value
         $(".form-control").on("input", function() {
 
+            
             $(".form-control").each(function () {
             
             if ($(this).val() < 1){
