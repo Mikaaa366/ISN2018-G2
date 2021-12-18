@@ -64,5 +64,23 @@
                 </div>
             </div>
         </div>
+        <script>
+            $(document).ready(function(){
+
+                //if any input has changed value
+                $(".form-control").on("input", function() {
+
+                    $.ajax({
+                        type: "POST",
+                        url: 'test.php',
+                        data: "check",
+                        success: function(response){
+                            alert(response);
+                        }
+                    });
+                });
+            })
+        })
+        </script>
     </body>
 </html>
