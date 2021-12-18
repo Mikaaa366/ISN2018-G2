@@ -70,12 +70,13 @@
         $("#width, #length, #height, #weight").on("input", function() {
 
             $(".form-control").each(function () {
-            
-            if ($(this).val() < 1){
-                $(this).css('border-color', 'red');
-            }
-            else{
-                $(this).css('border-color', '');
+            if ($(this).attr("id") != "packageType") {
+                if ($(this).val() < 1){
+                    $(this).css('border-color', 'red');
+                }
+                else{
+                    $(this).css('border-color', '');
+                }
             }
         });
 
