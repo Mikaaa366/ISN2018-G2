@@ -46,17 +46,6 @@
                     @endauth
                 </div>
             @endif
-            <!-- dodanie paczki do bazy-->
-            @if(session('statusSuccess'))
-                <div class="fixed top-4 alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('statusSuccess') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @endif
-
-
                     <div class="ml-4 text-center text-gray-500">
                         <label for="name" class="form-label"><b>Znajdź paczkę:</b></label>
                         <input type="text" class="form-control search-packages search" id="findOrder" name="findOrder">

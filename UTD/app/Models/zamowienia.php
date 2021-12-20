@@ -21,5 +21,6 @@ class zamowienia extends Model
         'Ilosc_sztuk',
         'Kwota',
         'id_opakowania',
+        'reference_number',
     ];
 }

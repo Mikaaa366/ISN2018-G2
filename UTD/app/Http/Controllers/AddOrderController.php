@@ -70,16 +70,22 @@ class AddOrderController extends Controller
                 ])->id;
             };
 
+            //wyliczenie numeru referencyjnego
+            $referenceNumber = md5(date("H").date("i").date("s").$idOpakowania);
+
             //dodawanie zamówienia
             zamowienia::create([
                 'id_nadawca' => $idKlienta[0],
                 'id_odbiorca' => $idKlienta[1],
                 'Ilosc_sztuk' =>'1',
                 'Kwota' => $price->price,
-                'id_opakowania' => $idOpakowania
+                'id_opakowania' => $idOpakowania,
+                'reference_number' => $referenceNumber
             ]);
 
-            return redirect('/')->with('statusSuccess', 'Pomyślnie dodano rekord do bazy.');
+            return view('client.orderConfirm', [
+                'referenceNumber' => $referenceNumber
+            ]);
         }
     }
 
