@@ -46,20 +46,32 @@
                     @endauth
                 </div>
             @endif
+            @if(session('status'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Przesyłka {{ session('status') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
                     <div class="ml-4 text-center text-gray-500">
-                        <label for="name" class="form-label"><b>Znajdź paczkę:</b></label>
-                        <input type="text" class="form-control search-packages search" id="findOrder" name="findOrder">
+                        <form action="/findOrder" method="post">
+                            <label for="name" class="form-label"><b>Znajdź paczkę:</b></label>
+                            <input type="text" class="form-control search-packages search" id="findOrder" name="findOrder">
+                            <input class="btn btn-secondary mt-4"type="submit" value="Szukaj"/>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+        <!--
         <script>
             $(document).ready(function(){
                 //if any input has changed value
                 $(".form-control").on("input", function() {
                     $.ajax({
                         type: "POST",
-                        url: 'test.php',
+                        url: '/findOrder',
                         data: "check",
                         success: function(response){
                             alert(response);
@@ -68,5 +80,6 @@
                 });
             })
         </script>
+    -->
     </body>
 </html>

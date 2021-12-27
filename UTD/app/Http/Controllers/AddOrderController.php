@@ -80,7 +80,8 @@ class AddOrderController extends Controller
                 'Ilosc_sztuk' =>'1',
                 'Kwota' => $price->price,
                 'id_opakowania' => $idOpakowania,
-                'reference_number' => $referenceNumber
+                'reference_number' => $referenceNumber,
+                'sortownie' => 'Oczekuje na kuriera'
             ]);
 
             return view('client.orderConfirm', [
@@ -95,9 +96,21 @@ class AddOrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function findOrder(Request $request)
     {
-        //
+        $referenceNumber = $request->only(['findOrder']);
+
+        if (empty($referenceNumber['findOrder'])){
+            return redirect()->back();
+        } else {
+            
+            $findOrder = zamowienia::select('sortownie')->where('reference_number', $referenceNumber['findOrder'])->first();
+            if (!isset($findOrder->sortownie)) {
+                return redirect()->back();
+            } else {
+                return redirect()->back()->with('status', $findOrder->sortownie);
+            }
+        }
     }
 
     /**

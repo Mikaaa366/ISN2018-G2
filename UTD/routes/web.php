@@ -19,6 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/findOrder', [AddOrderController::class, 'findOrder'])->name('findOrder');
+
 Auth::routes();
 
 Route::middleware(['auth', 'verified'])->group(function() {

@@ -22,5 +22,6 @@ class zamowienia extends Model
         'Kwota',
         'id_opakowania',
         'reference_number',
+        'sortownie',
     ];
 }
