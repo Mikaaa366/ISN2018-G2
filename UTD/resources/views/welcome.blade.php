@@ -64,7 +64,7 @@
                 </div>
             </div>
         </div>
-        <!--
+
         <script>
             $(document).ready(function(){
                 //if any input has changed value
@@ -74,12 +74,12 @@
                         url: '/findOrder',
                         data: "check",
                         success: function(response){
-                            alert(response);
+                            //alert(response);
                         }
                     });
                 });
             })
         </script>
-    -->
+
     </body>
 </html>
