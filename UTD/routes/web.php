@@ -24,8 +24,11 @@ Route::post('/findOrder', [AddOrderController::class, 'findOrder'])->name('findO
 Auth::routes();
 
 Route::middleware(['auth', 'verified'])->group(function() {
+
+    Route::get('/home', [App\Http\Controllers\clientPanelCotroller::class, 'index']);
+    
     Route::middleware(['can:isClient'])->group(function() {
-        Route::get('/home', [App\Http\Controllers\clientPanelCotroller::class, 'index']);
+        
         Route::post('/senderAddress', [App\Http\Controllers\clientPanelCotroller::class, 'senderAddress'])->name('senderAddress');
         Route::post('/deliveryAddress', [App\Http\Controllers\clientPanelCotroller::class, 'deliveryAddress'])->name('deliveryAddress');
         Route::post('/paymentMethods', [App\Http\Controllers\clientPanelCotroller::class, 'paymentMethods']);
@@ -35,6 +38,12 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
         Route::get('/addOrder/{id}', [App\Http\Controllers\AddOrderController::class, 'createOrder']);
     });
+
+    Route::middleware(['can:isWorker'])->group(function() {
+        Route::get('/magazine', [App\Http\Controllers\workerPanelController::class, 'index']);
+    
+    });
 });
+
 
 Route::get('/destroy', [App\Http\Controllers\clientPanelCotroller::class, 'destroy']);
