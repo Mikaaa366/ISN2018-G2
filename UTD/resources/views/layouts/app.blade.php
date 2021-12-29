@@ -60,7 +60,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     @can('isWorker')
-                                        <a class="dropdown-item" href="/magazine">magazyn</a>
+                                        <a class="dropdown-item" href="/magazine">Magazyn</a>
                                     @endcan
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

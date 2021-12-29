@@ -26,22 +26,21 @@ Auth::routes();
 Route::middleware(['auth', 'verified'])->group(function() {
 
     Route::get('/home', [App\Http\Controllers\clientPanelCotroller::class, 'index']);
-    
-    Route::middleware(['can:isClient'])->group(function() {
         
-        Route::post('/senderAddress', [App\Http\Controllers\clientPanelCotroller::class, 'senderAddress'])->name('senderAddress');
-        Route::post('/deliveryAddress', [App\Http\Controllers\clientPanelCotroller::class, 'deliveryAddress'])->name('deliveryAddress');
-        Route::post('/paymentMethods', [App\Http\Controllers\clientPanelCotroller::class, 'paymentMethods']);
+    Route::post('/senderAddress', [App\Http\Controllers\clientPanelCotroller::class, 'senderAddress'])->name('senderAddress');
+    Route::post('/deliveryAddress', [App\Http\Controllers\clientPanelCotroller::class, 'deliveryAddress'])->name('deliveryAddress');
+    Route::post('/paymentMethods', [App\Http\Controllers\clientPanelCotroller::class, 'paymentMethods']);
 
-        Route::get('/backToSenderAddress', [App\Http\Controllers\clientPanelCotroller::class, 'backToSenderAddress']);
-        Route::get('/backToDeliveryAddress', [App\Http\Controllers\clientPanelCotroller::class, 'backToDeliveryAddress']);
+    Route::get('/backToSenderAddress', [App\Http\Controllers\clientPanelCotroller::class, 'backToSenderAddress']);
+    Route::get('/backToDeliveryAddress', [App\Http\Controllers\clientPanelCotroller::class, 'backToDeliveryAddress']);
 
-        Route::get('/addOrder/{id}', [App\Http\Controllers\AddOrderController::class, 'createOrder']);
-    });
+    Route::get('/addOrder/{id}', [App\Http\Controllers\AddOrderController::class, 'createOrder']);
+
 
     Route::middleware(['can:isWorker'])->group(function() {
         Route::get('/magazine', [App\Http\Controllers\workerPanelController::class, 'index']);
-    
+        
+        Route::post('/changeSort', [App\Http\Controllers\workerPanelController::class, 'changeSort']);
     });
 });
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\zamowienia;
+use App\Models\sortownie;
 
 class workerPanelController extends Controller
 {
@@ -17,25 +18,23 @@ class workerPanelController extends Controller
         $zamowienia = zamowienia::select(['id_zamowienia', 'ilosc_sztuk', 'reference_number', 'sortownie'])
             ->where('reference_number', '!=', '')
             ->where('sortownie', '!=', '') 
-            ->get();
+            ->where('sortownie', '!=', 'Dostarczona')
+            ->paginate(10);
 
         if( $zamowienia == NULL){
             $zamowienia = [];
         }
-        //dd($zamowienia);
-        return view('magazine.home',[
-            'zamowienia' => $zamowienia
-        ]);
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $sortownie = sortownie::select(['nazwa_sortowni', 'miasto', 'województwo'])->get();
+
+        if( $sortownie == NULL){
+            $sortownie = [];
+        }
+        
+        return view('magazine.home',[
+            'zamowienia' => $zamowienia,
+            'sortownie' => $sortownie
+        ]);
     }
 
     /**
@@ -44,9 +43,17 @@ class workerPanelController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function changeSort(Request $request)
     {
-        //
+        $token = $request->session()->token();
+        $token = csrf_token();
+
+        $changeSort = $request->only(['id_zamowienia', 'sort']);
+
+        zamowienia::where('id_zamowienia', $changeSort['id_zamowienia'])
+            ->update(array('sortownie' => $changeSort['sort']));
+            
+        return redirect()->back();
     }
 
     /**
