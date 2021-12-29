@@ -73,6 +73,7 @@
 
                     if($.trim($('#findOrder').val()) !=''){
                         var values = $(this).serialize();
+                        $('#div-status').show();
 
                         $.ajax({
                             type: "POST",
@@ -81,11 +82,10 @@
                             success: function (data) {
                                 if (data.sortownie != null){
                                     $('#status').html(data.sortownie);
-                                    $('#div-status').show();
                                 }
                                 else {
-                                    $('#status').html('');
-                                    $('#div-status').hide();
+                                    $('#status').html('nie została znaleziona');
+
                                 }
                             }
                         }); 
