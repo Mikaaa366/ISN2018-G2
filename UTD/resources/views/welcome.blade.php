@@ -48,7 +48,7 @@
             @endif
 
                 <div id="div-status" class="alert alert-success alert-dismissible fade show" role="alert">
-                    Przesyłka <label id="status"></label>
+                    <label id="status"></label>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -79,12 +79,15 @@
                             type: "POST",
                             url: 'findOrder',
                             data: values,
+                            beforeSend: function() {
+                                $('#status').html('Ładuję...');
+                            },
                             success: function (data) {
                                 if (data.sortownie != null){
-                                    $('#status').html(data.sortownie);
+                                    $('#status').html('Przesyłka : ' + data.sortownie);
                                 }
                                 else {
-                                    $('#status').html('nie została znaleziona');
+                                    $('#status').html('Przesyłka nie została znaleziona');
 
                                 }
                             }
