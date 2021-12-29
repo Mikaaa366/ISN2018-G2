@@ -46,19 +46,19 @@
                     @endauth
                 </div>
             @endif
-            @if(session('status'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    Przesyłka {{ session('status') }}
+
+                <div id="div-status" class="alert alert-success alert-dismissible fade show" role="alert">
+                    Przesyłka <label id="status"></label>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-            @endif
+
                     <div class="ml-4 text-center text-gray-500">
                         <form action="/findOrder" method="post">
                             <label for="name" class="form-label"><b>Znajdź paczkę:</b></label>
                             <input type="text" class="form-control search-packages search" id="findOrder" name="findOrder">
-                            <input class="btn btn-secondary mt-4"type="submit" value="Szukaj"/>
+                            <!-- <input class="btn btn-secondary mt-4" type="submit" value="Szukaj"/> -->
                         </form>
                     </div>
                 </div>
@@ -66,17 +66,34 @@
         </div>
 
         <script>
+        $('#div-status').hide();
+
             $(document).ready(function(){
-                //if any input has changed value
                 $(".form-control").on("input", function() {
-                    $.ajax({
-                        type: "POST",
-                        url: '/findOrder',
-                        data: "check",
-                        success: function(response){
-                            //alert(response);
-                        }
-                    });
+
+                    if($.trim($('#findOrder').val()) !=''){
+                        var values = $(this).serialize();
+
+                        $.ajax({
+                            type: "POST",
+                            url: 'findOrder',
+                            data: values,
+                            success: function (data) {
+                                if (data.sortownie != null){
+                                    $('#status').html(data.sortownie);
+                                    $('#div-status').show();
+                                }
+                                else {
+                                    $('#status').html('');
+                                    $('#div-status').hide();
+                                }
+                            }
+                        }); 
+                    }
+                    else {
+                        $('#status').html('');
+                        $('#div-status').hide();
+                    }
                 });
             })
         </script>

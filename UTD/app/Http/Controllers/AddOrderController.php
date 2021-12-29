@@ -108,7 +108,8 @@ class AddOrderController extends Controller
             if (!isset($findOrder->sortownie)) {
                 return redirect()->back();
             } else {
-                return redirect()->back()->with('status', $findOrder->sortownie);
+                //return redirect()->back()->with('status', $findOrder->sortownie);
+                return response()->json($findOrder, 200);
             }
         }
     }
